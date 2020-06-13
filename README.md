@@ -1,4 +1,4 @@
-![](https://github.com/iambaljeet/https://github.com/iambaljeet/JetPackHiltDemo/blob/master/art/hilt_di.jpg/blob/master/art/hilt_di.jpg)
+![](https://github.com/iambaljeet/JetPackHiltDemo/blob/master/art/hilt_di.jpg)
 
 # JetPackHiltDemo 💉
 
