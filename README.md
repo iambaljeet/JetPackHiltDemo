@@ -1,6 +1,6 @@
 ![](https://github.com/iambaljeet/JetPackHiltDemo/blob/master/art/hilt_di.jpg)
 
-# JetPackHiltDemo 💉
+# JetPackHiltDemo
 
 [![GitHub license](https://img.shields.io/github/license/iambaljeet/JetPackHiltDemo)](LICENSE)
 ![Github Followers](https://img.shields.io/github/followers/iambaljeet?style=social)
