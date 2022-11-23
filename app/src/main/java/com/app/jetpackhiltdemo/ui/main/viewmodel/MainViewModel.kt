@@ -1,27 +1,28 @@
 package com.app.jetpackhiltdemo.ui.main.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.app.jetpackhiltdemo.model.RepositoriesModel
 import com.app.jetpackhiltdemo.network.ResultData
 import com.app.jetpackhiltdemo.usecase.DataUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(
     private val dataUseCase: DataUseCase
-): ViewModel() {
-    fun getRepositoriesList(since: String): LiveData<ResultData<RepositoriesModel?>> {
-        return flow {
-            emit(ResultData.Loading())
-            try {
-                emit(dataUseCase.getRepositoriesList(since = since))
-            } catch (e: Exception) {
-                e.printStackTrace()
-                emit(ResultData.Exception())
-            }
-        }.asLiveData(Dispatchers.IO)
+) : ViewModel() {
+
+    val repositoryListLiveData: MutableLiveData<ResultData<RepositoriesModel?>> =
+        MutableLiveData()
+
+    fun getRepositoriesList(since: String) {
+        viewModelScope.launch {
+            dataUseCase.getRepositoriesList(since = since).onEach {
+                repositoryListLiveData.postValue(it)
+            }.collect()
+        }
     }
 }

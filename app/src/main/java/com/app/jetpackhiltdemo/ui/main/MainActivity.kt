@@ -28,10 +28,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                 val repositoriesModel = resultData.data
                 repositoriesAdapter.submitList(repositoriesModel)
             }
-            is ResultData.Failed -> {
-                progressIndicator.hide()
-            }
-            is ResultData.Exception -> {
+            else -> {
                 progressIndicator.hide()
             }
         }
@@ -46,12 +43,16 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         swipe_refresh.setOnRefreshListener(this)
 
+        setObservers()
         getDataAndSubscribeEvents()
     }
 
+    private fun setObservers() {
+        mainViewModel.repositoryListLiveData.observe(this, repositoryObserver)
+    }
+
     private fun getDataAndSubscribeEvents() {
-        val repositoriesListLiveData = mainViewModel.getRepositoriesList(since = "20")
-        repositoriesListLiveData.observe(this, repositoryObserver)
+        mainViewModel.getRepositoriesList(since = "20")
     }
 
     override fun onRefresh() {
