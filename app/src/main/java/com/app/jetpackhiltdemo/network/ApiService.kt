@@ -8,5 +8,5 @@ interface ApiService {
     @GET(NetworkingConstants.URL_REPOSITORIES)
     suspend fun getPublicRepositories(
         @Query("since") since: String
-    ): RepositoriesModel
+    ): RepositoriesModel?
 }
